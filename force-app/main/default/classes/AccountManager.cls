@@ -26,7 +26,15 @@ global with sharing class AccountManager {
 
     @HttpPut
     global static ID upsertAcc(String name, String site, String id) {
-        Account upsertAcc = new Account (Id=id, Name=name, Site=site);
+        Account upsertAcc = new Account();
+        if (id == '') {
+            upsertAcc.Name = name;
+            upsertAcc.Site = site;
+        } else {
+            upsertAcc.Id = id;
+            upsertAcc.Name = name;
+            upsertAcc.Site = site;
+        }
         upsert upsertAcc;
         return upsertAcc.id;
     }
